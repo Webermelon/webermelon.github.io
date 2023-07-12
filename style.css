@@ -46,8 +46,8 @@ li {
 	margin:0 0 2px 18px;
 }
 #post-it {
-	width:9em;
-	height:9em;
+	width:fit-content;
+	height:fit-content;
 	margin-left:2em;
 	padding:1em;
 	float:left;
