@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+
+	<link rel="stylesheet" href="src/leaflet-search.css" />
+	<link rel="stylesheet" href="style.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet-src.js"></script>
+	<script src="https://cdn.rawgit.com/aparshin/leaflet-boundary-canvas/f00b4d35/src/BoundaryCanvas.js"></script>
+	<script src="dist/leaflet-search.src.js"></script>
+
+</head>
+
+<body>
+	<h3><a href="../"><big>◄</big> Leaflet Search</a></h3>
+ 
+	<div id="map"></div>
+
+	<div id="post-it">
+		<b>Search values:</b><br />
+		Trnava, Dudince, Domadice, Hontianske Trsťany, Pezinok, Harmónia, Dubová, Častá, Sereď, Vlčkovce, Zeleneč, Veľké Zálužie, Vranov nad Topľou, Žilina
+		...
+	</div>
+
+	<script>
+		// var map = L.map("map");
+
+		//sample data values for populate map
+		// let data = [
+		// 	{ "loc": [48.37028055504392, 17.58651105140928], "title": "Trnava" },
+		// 	{ "loc": [48.17168408292144, 18.886892481348887], "title": "Dudince" },
+		// 	{ "loc": [49.091254735829516, 20.29560485498669], "title": "Domadice" },
+		// 	{ "loc": [48.90824669124351, 20.520722090690946], "title": "Hontianske Trsťany" },
+		// 	{ "loc": [48.67934836016053, 20.506040531840668], "title": "Pezinok" },
+		// 	{ "loc": [48.4234304929209, 20.011761383881318], "title": "Harmónia" },
+		// 	{ "loc": [48.35843577971297, 19.659403971474656], "title": "Dubová" },
+		// 	{ "loc": [48.234717067836655, 18.59743788130457], "title": "Častá" },
+		// 	{ "loc": [48.3193991003833, 18.0493263508942], "title": "Sereď" },
+		// 	{ "loc": [47.99948017420335, 18.142309556945964], "title": "Vlčkovce" },
+		// 	{ "loc": [47.9929304377563, 17.63334884876804], "title": "Zeleneč" },
+		// 	{ "loc": [48.2705612104109, 17.016723377056376], "title": "Veľké Zálužie" },
+		// 	{ "loc": [48.32916107136469, 17.310354554061934], "title": "Vranov nad Topľou" },
+		// 	{ "loc": [48.39094351200198, 17.55015334861647], "title": "Nižný Kručov" },
+		// 	{ "loc": [48.766517267931974, 17.81931526087156], "title": "Humenné" },
+		// 	{ "loc": [48.908246689992964, 18.019963231825354], "title": "Dolný Kubín" },
+		// 	{ "loc": [48.57584138240832, 18.16677882032813], "title": "Žilina" },
+		// 	{ "loc": [48.48834220055363, 18.396789908982477], "title": "seagreen" },
+		// 	{ "loc": [48.55317092793026, 17.40333776011369], "title": "seashell" },
+		// 	{ "loc": [48.72133743315622, 18.16677882032813], "title": "Púchov" },
+		// 	{ "loc": [48.756839293813734, 17.217371348010175], "title": "Dudince" },
+		// 	{ "loc": [48.99822940755485, 18.044432496575812], "title": "Častá" },
+		// 	{ "loc": [48.982172967912625, 18.440834585533313], "title": "Hontianske" }
+		// ];
+		let jsonFilePath = '/webermelon.github.io/data.json';
+ 
+		fetch(jsonFilePath)
+		.then(response => response.json())
+		.then(jsonObject => { 
+			console.log(jsonObject);
+		})
+		.catch(error => {
+			console.error('Error reading or parsing JSON:', error);
+		}); 
+		let data = [
+			{ "loc": [48.37028055504392, 17.58651105140928], "title": "Trnava" },
+			{ "loc": [48.17168408292144, 18.886892481348887], "title": "Dudince" },
+			{ "loc": [49.091254735829516, 20.29560485498669], "title": "Domadice" },
+			{ "loc": [48.90824669124351, 20.520722090690946], "title": "Hontianske Trsťany" },
+			{ "loc": [48.67934836016053, 20.506040531840668], "title": "Pezinok" },
+			{ "loc": [48.4234304929209, 20.011761383881318], "title": "Harmónia" },
+			{ "loc": [48.35843577971297, 19.659403971474656], "title": "Dubová" },
+			{ "loc": [48.234717067836655, 18.59743788130457], "title": "Častá" },
+			{ "loc": [48.3193991003833, 18.0493263508942], "title": "Sereď" },
+			{ "loc": [47.99948017420335, 18.142309556945964], "title": "Vlčkovce" },
+			{ "loc": [47.9929304377563, 17.63334884876804], "title": "Zeleneč" },
+			{ "loc": [48.2705612104109, 17.016723377056376], "title": "Veľké Zálužie" },
+			{ "loc": [48.32916107136469, 17.310354554061934], "title": "Vranov nad Topľou" },
+			{ "loc": [48.39094351200198, 17.55015334861647], "title": "Nižný Kručov" },
+			{ "loc": [48.766517267931974, 17.81931526087156], "title": "Humenné" },
+			{ "loc": [48.908246689992964, 18.019963231825354], "title": "Dolný Kubín" },
+			{ "loc": [48.57584138240832, 18.16677882032813], "title": "Žilina" },
+			{ "loc": [48.48834220055363, 18.396789908982477], "title": "seagreen" },
+			{ "loc": [48.55317092793026, 17.40333776011369], "title": "seashell" },
+			{ "loc": [48.72133743315622, 18.16677882032813], "title": "Púchov" },
+			{ "loc": [48.756839293813734, 17.217371348010175], "title": "Dudince" },
+			{ "loc": [48.99822940755485, 18.044432496575812], "title": "Častá" },
+			{ "loc": [48.982172967912625, 18.440834585533313], "title": "Hontianske" }
+		];
+
+		let some =[
+			{
+				"číslo obce": 511226,
+				"názov obce": "Ábelová",
+				"Ca": 18.7,
+				"Mg": 4.8,
+				"Pomer": "4:1",
+				"Súčet": 23.5,
+				"latitude" : 48.41,
+				"lognitude" : 19.43,
+			},
+			{
+				"číslo obce": 557757,
+				"názov obce": "Abovce",
+				"Ca": 158.5,
+				"Mg": 44.4,
+				"Pomer": "4:1",
+				"Súčet": 202.9,
+				"latitude" : 48.31,
+				"lognitude" : 20.33
+			},
+			{
+				"číslo obce": 503673,
+				"názov obce": "Abrahám",
+				"Ca": 118.9,
+				"Mg": 55,
+				"Pomer": "2:1",
+				"Súčet": 174,
+				"latitude" :48.25,
+				"lognitude" : 17.61 
+			}
+		];
+
+		let map = new L.Map("map", { zoom: 9, center: new L.latLng(data[0].loc) });	//set center from first location
+
+		// map.addLayer(new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
+
+		//overlay 
+		var osm;
+		$.getJSON('https://cdn.jsdelivr.net/gh/johan/world.geo.json@34c96bba/countries/SVK.geo.json').then(function (geoJSON) {
+			osm = new L.TileLayer.BoundaryCanvas("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+				boundary: geoJSON,
+				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, SK shape <a href="https://github.com/johan/world.geo.json">johan/word.geo.json</a>'
+			});
+			map.addLayer(osm);
+			var SKLAYER = L.geoJSON(geoJSON);
+			map.fitBounds(SKLAYER.getBounds());
+		});
+
+		$.when($.getJSON('https://cdn.jsdelivr.net/gh/johan/world.geo.json@34c96bba/countries/SVK.geo.json')).then(function () {
+			var markersLayer = new L.LayerGroup();	//layer contain searched elements
+			console.log(osm); 
+
+			map.addLayer(markersLayer);
+
+			var controlSearch = new L.Control.Search({
+				position: 'topright',
+				layer: markersLayer,
+				initial: false,
+				zoom: 12,
+				marker: false
+			});
+
+			map.addControl(controlSearch);
+
+			////////////populate map with markers from sample data
+			for (i in data) {
+				var title = data[i].title,	//value searched
+					loc = data[i].loc,		//position found
+					marker = new L.Marker(new L.latLng(loc), { title: title });//se property searched
+				marker.bindPopup('title: ' + title);
+				markersLayer.addLayer(marker)
+			}
+
+
+			// custom marker icon===>
+			var customIcon = L.icon({
+				iconUrl: './marker.png',
+				iconSize: [50, 50], // set the size of the icon
+				iconAnchor: [16, 50], // point of the icon that corresponds to marker's location
+				popupAnchor: [0, -50] // point from which the popup should open relative to the iconAnchor
+			});
+			// end custom marker icon===>
+
+
+
+			/// start custom new marker =======>>>>>>>>>>
+			for (f in some) {
+					let name = some[f]['názov obce']
+					lat = some[f].latitude
+					long = some[f].lognitude
+					let temp_loc = [lat,long];
+					let some_marker = new L.Marker(new L.latLng(temp_loc), { title: name }); 
+				
+					some_marker.setIcon(customIcon)
+					let tem_string = `Village name: ${name} <br> 'Mg: ${some[f].Mg} <br> Ca: ${some[f].Ca} <br> Pomer: '${some[f].Pomer} <br>` 
+					some_marker.bindPopup(tem_string);
+					markersLayer.addLayer(some_marker);
+			}
+			/// end custom new marker =======>>>>>>>>>>
+
+
+
+			var bounds = [[51.49, -0.14], [51.51, -0.06]];
+
+			// Create an image overlay and add it to the map
+			var overlayImage = L.imageOverlay('path/to/your/image.png', bounds).addTo(map);
+
+			// Fit the map to the bounds of the overlay image
+			map.fitBounds(bounds);
+
+		})
+	</script>
+
+	<script>
+		//marker backup
+		    // $.when($.getJSON('https://cdn.jsdelivr.net/gh/johan/world.geo.json@34c96bba/countries/SVK.geo.json')).then(function () {
+    //     var markersLayer = new L.LayerGroup();	//layer contain searched elements
+
+    //     map.addLayer(markersLayer);
+
+    //     // var controlSearch = new L.Control.Search({
+    //     //     position: 'topright',
+    //     //     layer: markersLayer,
+    //     //     initial: false,
+    //     //     zoom: 12,
+    //     //     marker: false
+    //     // });
+
+    //     // map.addControl(controlSearch);
+
+
+
+
+    
+
+    //     // custom marker icon===>
+    //     var customIcon = L.icon({
+    //         iconUrl: './images/marker-v2.png',
+    //         iconSize: [50, 50], // set the size of the icon
+    //         iconAnchor: [16, 50], // point of the icon that corresponds to marker's location
+    //         popupAnchor: [0, -50] // point from which the popup should open relative to the iconAnchor
+    //     });
+    //     // end custom marker icon===>
+
+
+
+    //     /// start custom new marker =======>>>>>>>>>>
+    //     for (f in marker_array) {
+    //             let name = marker_array[f]['názov obce']
+    //             let lat = marker_array[f].latitude
+    //             let long = marker_array[f].longitude
+    //             let temp_loc = [lat,long];
+    //             let marker_array_marker = new L.Marker(new L.latLng(temp_loc), { title: name }); 
+            
+    //             marker_array_marker.setIcon(customIcon)
+    //             let tem_string = `Village name: ${name} <br> 'Mg: ${marker_array[f].Mg} <br> Ca: ${marker_array[f].Ca} <br> Pomer: '${marker_array[f].Pomer} <br>` 
+    //             marker_array_marker.bindPopup(tem_string);
+    //             markersLayer.addLayer(marker_array_marker);
+    //     }
+    //     /// end custom new marker =======>>>>>>>>>>
+
+
+
+
+    // });
+	</script>
+
+
+</body>
+
+</html>

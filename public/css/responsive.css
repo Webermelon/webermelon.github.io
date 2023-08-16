@@ -1,0 +1,32 @@
+@media (min-width: 320px) and (max-width: 479px) {
+  .map-section img {
+    width: 320px;
+  }
+
+  .map-location-icon svg {
+    width: 25px;
+    height: 25px;
+  }
+  .map-location-icon {
+    height: 40px;
+    width: 40px;
+  }
+  .main-btn {
+    padding: 8px 32px;
+  }
+
+  .cus-text-lg {
+    font-size: 20px;
+  }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .map-section img {
+    max-width: 520px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media (min-width: 1024px) {
+}

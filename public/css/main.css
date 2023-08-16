@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --primary-color: #0a5bac;
+
+  --secondary-color: #1abbee;
+  --secondary-color-two: rgba(26, 187, 238, 0.24);
+  --text-danger: #f67b7f;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.cus-bg-primary {
+  background-color: var(--primary-color);
+}
+.cus-text-primary {
+  color: var(--primary-color);
+}
+.cus-bg-secondary {
+  background-color: var(--secondary-color);
+}
+.cus-bg-secondary-two {
+  background-color: var(--secondary-color-two);
+}
+.cus-color-secondary {
+  color: var(--secondary-color);
+}
+
+.cus-text-danger {
+  color: var(--text-danger);
+}
+
+nav ul li a,
+nav ul li {
+  color: #fff !important;
+}
+
+.navbar-expand-lg .navbar-nav {
+  margin-left: auto;
+}
+
+.navbar-toggler {
+  background-color: white;
+}
+.nav button {
+  border: 2px solid #fff !important;
+}
+
+/* ==== Reuseable classes ===== */
+
+.heading-1 {
+  color: #fff;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+.cus-text-lg {
+  color: #1abbee;
+  font-family: Georgia;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 140%;
+}
+.text-1 {
+  font-family: Georgia;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 140%;
+}
+.text-2 {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.text-3 {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.service-section {
+  background-color: rgba(26, 187, 238, 0.24);
+  /* opacity: 0.1; */
+}
+
+.search-btn-cont {
+  /* width: 662px;
+  height: 112px; */
+  border-radius: 72px;
+  padding: 10px;
+  border: 10px solid inherit;
+  outline: 1px solid #1abbee;
+  background: linear-gradient(
+    272deg,
+    rgba(26, 187, 238, 0.3) 0%,
+    rgba(26, 187, 238, 0) 100%
+  );
+  transform: translateY(-95%);
+}
+.main-btn {
+  background-color: #fff !important;
+  border-radius: 72px;
+  /* border: 1px solid #1abbee; */
+  padding: 16px 32px;
+
+  box-shadow: 0px 7px 23px 0px rgba(26, 187, 238, 0.15);
+}
+
+.search-btn {
+  width: 155px;
+  height: 64px;
+  border-radius: 63px;
+  border: 1px solid #fff;
+  background: var(--secondary-color);
+  color: white;
+  margin-right: -22px;
+}
+.search-btn-with-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 63px;
+  border: 1px solid #fff;
+  background: var(--secondary-color);
+  color: white;
+  margin-right: -22px;
+}
+
+.service-card-cont {
+}
+.service-card-1 {
+  position: relative;
+  max-width: 370px;
+  min-height: 331px;
+  background-color: var(--primary-color);
+  border-radius: 72px;
+}
+
+.service-card__logo__sm {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background-color: rgba(26, 187, 238, 0.24);
+  fill: linear-gradient(
+      0deg,
+      rgba(26, 187, 238, 0.24) 0%,
+      rgba(26, 187, 238, 0.24) 100%
+    ),
+    #fff;
+  filter: drop-shadow(0px 7px 23px rgba(26, 187, 238, 0.15));
+  transform: translate(100%, -100%);
+  margin-bottom: -25%;
+}
+
+.service-card__logo__md {
+  display: block;
+  height: 124px;
+  width: 124px;
+  border-radius: 50%;
+  background-color: var(--secondary-color-two);
+}
+.service-card__logo__md div {
+  transform: translateY(-30%);
+}
+
+.service-card-1__text__1 {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+.service-card-1__text__2 {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.service-card-2__text__1 {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.service-card-3 {
+  fill: linear-gradient(
+      0deg,
+      rgba(26, 187, 238, 0.24) 0%,
+      rgba(26, 187, 238, 0.24) 100%
+    ),
+    #fff;
+  filter: drop-shadow(0px 7px 23px rgba(26, 187, 238, 0.15));
+  position: relative;
+}
+.service-card-3 {
+  z-index: 99 !important;
+  opacity: 1;
+}
+.service-card-3 img {
+  position: absolute;
+  right: 0;
+  top: -4%;
+  min-height: 345px;
+  border-bottom-right-radius: 72px;
+}
+
+.map-location-icon {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+footer svg {
+  opacity: 0.5;
+}
+footer svg:hover {
+  opacity: 1;
+}
