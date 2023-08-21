@@ -2,7 +2,6 @@
 
 :root {
   --primary-color: #0a5bac;
-
   --secondary-color: #1abbee;
   --secondary-color-two: rgba(26, 187, 238, 0.24);
   --text-danger: #f67b7f;
@@ -50,7 +49,7 @@ nav ul li {
 
 /* ==== Reuseable classes ===== */
 
-.heading-1 {
+.heading-1 h1{
   color: #fff;
   text-align: center;
   font-family: Roboto;
@@ -70,6 +69,7 @@ nav ul li {
 .text-1 {
   font-family: Georgia;
   font-size: 18px;
+  font-style: italic;
   font-weight: 400;
   line-height: 140%;
 }
@@ -84,6 +84,7 @@ nav ul li {
 .text-3 {
   text-align: center;
   font-family: Roboto;
+  text-transform: uppercase;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -91,7 +92,7 @@ nav ul li {
 }
 
 .service-section {
-  background-color: rgba(26, 187, 238, 0.24);
+  background: #e8f8fd;
   /* opacity: 0.1; */
 }
 
@@ -99,7 +100,7 @@ nav ul li {
   /* width: 662px;
   height: 112px; */
   border-radius: 72px;
-  padding: 10px;
+  padding: 16px;
   border: 10px solid inherit;
   outline: 1px solid #1abbee;
   background: linear-gradient(
@@ -113,19 +114,23 @@ nav ul li {
   background-color: #fff !important;
   border-radius: 72px;
   /* border: 1px solid #1abbee; */
-  padding: 16px 32px;
+  padding: 7px 32px;
 
   box-shadow: 0px 7px 23px 0px rgba(26, 187, 238, 0.15);
 }
 
 .search-btn {
+  font-family: 'Roboto';
+  font-style: normal;
+  text-transform: uppercase;
   width: 155px;
+  font-weight: 700;
   height: 64px;
   border-radius: 63px;
   border: 1px solid #fff;
   background: var(--secondary-color);
   color: white;
-  margin-right: -22px;
+  margin-right: -24px;
 }
 .search-btn-with-icon {
   width: 60px;
@@ -138,10 +143,11 @@ nav ul li {
 }
 
 .service-card-cont {
+  margin-top: 15px;
 }
 .service-card-1 {
   position: relative;
-  max-width: 370px;
+  max-width: 100%;
   min-height: 331px;
   background-color: var(--primary-color);
   border-radius: 72px;
@@ -151,16 +157,8 @@ nav ul li {
   height: 80px;
   width: 80px;
   border-radius: 50%;
-  background-color: rgba(26, 187, 238, 0.24);
-  fill: linear-gradient(
-      0deg,
-      rgba(26, 187, 238, 0.24) 0%,
-      rgba(26, 187, 238, 0.24) 100%
-    ),
-    #fff;
-  filter: drop-shadow(0px 7px 23px rgba(26, 187, 238, 0.15));
-  transform: translate(100%, -100%);
-  margin-bottom: -25%;
+  background:#c8effb;
+  box-shadow: 0px 7px 23px rgba(26, 187, 238, 0.15);
 }
 
 .service-card__logo__md {
@@ -233,4 +231,29 @@ footer svg {
 }
 footer svg:hover {
   opacity: 1;
+}
+
+.data-box {
+  display: none;
+}
+
+#map_location_input_search::placeholder {
+  color: #1abbee;
+}
+#map_location_input_search:focus {
+  outline: none;
+}
+
+.map-section {
+  background: #e8f8fd;
+}
+
+.footer-section .text-1 {
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-size: 18px;
+}
+
+.footer-section li {
+  margin: 0;
 }
