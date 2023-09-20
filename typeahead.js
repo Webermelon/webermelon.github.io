@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let data_list_option_parent = document.getElementById("datalistOptions");
   let addedCities = [];
 
-  search_input.addEventListener("keypress", async (e) => {
+  search_input.addEventListener("input", async (e) => {
     datat();
 
   });
