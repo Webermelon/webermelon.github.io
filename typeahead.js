@@ -1,9 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
   let search_btn = document.getElementById("search-btn");
   let search_input = document.getElementById("map_location_input_search");
-  let data_list_option_parent = document.getElementById("datalistOptions");
+  let data_list_option_parent = document.querySelector("#datalistOptions select");
   let addedCities = [];
 
+  data_list_option_parent.addEventListener('change',()=>{
+    // console.log('search input value old ==> ', search_input)
+    // search_input.value = null;
+    search_input.value = data_list_option_parent.value ; 
+    data_list_option_parent.style.display = "none";
+  })
   search_input.addEventListener("input", async (e) => {
     datat();
 
