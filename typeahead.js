@@ -2,17 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
   let search_btn = document.getElementById("search-btn");
   let search_input = document.getElementById("map_location_input_search");
   let data_list_option_parent = document.querySelector("#datalistOptions select");
+  let data_list_option_parent_childs = document.querySelectorAll("#datalistOptions select options");
   let addedCities = [];
+ 
 
-  data_list_option_parent.addEventListener('change',()=>{
-    // console.log('search input value old ==> ', search_input)
-    // search_input.value = null;
+  data_list_option_parent.addEventListener('input',()=>{
+ 
     search_input.value = data_list_option_parent.value ; 
     data_list_option_parent.style.display = "none";
   })
-  search_input.addEventListener("input", async (e) => {
+ 
+  search_input.addEventListener("input", async (e) => { 
     datat();
-
   });
 
   search_from.addEventListener("submit", function (event) {
@@ -22,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function datat() {
 
     let search_value = search_input.value;
-
     if (search_value.length > 0) {
       let jsonFilePath = "updated_data.json";
       fetch(jsonFilePath)
@@ -30,11 +30,20 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((jsonObject) => {
           data_list_option_parent.innerHTML = "";
           addedCities.length = 0; // Clear the added cities array
-
           jsonObject.forEach((element) => {
             let cityName = element["názov obce"];
-            let temp_cityName = cityName.toLowerCase();
+            let temp_cityName = cityName;
             search_value = search_value.toLowerCase();
+
+            let normalizedString = temp_cityName.normalize("NFD");
+            let search_value_normalizedString = search_value.normalize("NFD");
+
+            // Remove diacritic marks (accented characters)
+            let stringWithoutSpecialChar = normalizedString.replace(/[\u0300-\u036f]/g, '');
+            let search_value_stringWithoutSpecialChar = search_value_normalizedString.replace(/[\u0300-\u036f]/g, '');
+            temp_cityName = stringWithoutSpecialChar.toLowerCase()
+            search_value = search_value_stringWithoutSpecialChar.toLowerCase()
+ 
             if (
               temp_cityName.includes(search_value) &&
               !addedCities.includes(cityName)
@@ -55,9 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
               addedCities.push(cityName); // Add city to the added cities array
             }
           });
+         
         });
+       
     }
 
+    // update_select_value();
   }
   search_btn.addEventListener("click", function () {
     let selectedOption = null;
@@ -66,15 +78,14 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < data_list_option_parent.options.length; i++) {
 
       let temp_data_list_option_parent = data_list_option_parent.options[i].value.toLowerCase();
-      let temp_search_input = search_input.value.toLowerCase()
+      let temp_search_input = data_list_option_parent.value.toLowerCase()
 
       if (temp_data_list_option_parent === temp_search_input) {
         selectedOption = data_list_option_parent.options[i];
         break;
       }
 
-    }
-
+    } 
     var elements = document.querySelectorAll(".data-box");
 
     // Loop through the elements and set their display property to "block"
