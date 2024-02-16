@@ -21,8 +21,6 @@
   <script src="https://cdn.rawgit.com/aparshin/leaflet-boundary-canvas/f00b4d35/src/BoundaryCanvas.js"></script>
   <script src="dist/leaflet-search.src.js"></script>
 
-  <script src="./map.js"></script>
-
 
   <!-- styles done for front-end -->
   <link rel="stylesheet" type="text/css" href="public/css/main.css" />
@@ -119,9 +117,7 @@ do políčka nižšie zadáte názov obce, v ktorej žijete.
           <div class="search-btn-cont">
             <form id="search_from" method="post">
             <div class="main-btn d-flex justify-content-between align-items-center">
-
               <div class="d-flex align-items-center gap-2 w-100">
-                
                 <div>
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path
@@ -129,26 +125,26 @@ do políčka nižšie zadáte názov obce, v ktorej žijete.
                       fill="#1ABBEE" />
                   </svg>
                 </div>
-
                 <div class="w-100">
                   <!-- <input type="text" id="map_location_input_search" class="cus-color-secondary cus-text-lg p-3 border-0" placeholder="Žiar nad Hronom"> -->
-
                   <input type="text" id="map_location_input_search" list="datalistOptions"
                     class="cus-color-secondary cus-text-lg p-0 border-0 w-100" placeholder="Vyhľadajte si svoju obec">
-
                   <datalist id="datalistOptions">
-
+                  <!-- <option value="Abrahám" data-lat="48.247983" data-lon="17.619419" data-ca="118.9" data-mg="55" data-pomer="2:1" data-sucet="174" data-id="503673">Abrahám</option> -->
+                    <?php $json_data = file_get_contents('updated_data.json');
+$locations = json_decode($json_data, true);
+foreach ($locations as $location) {
+    echo '<option value="' . $location['názov_obce'] . '" data-lat="' . $location['latitude'] . '" data-lon="' . $location['longitude'] . '" data-ca="' . $location['Ca'] . '" data-mg="' . $location['Mg'] . '" data-pomer="' . $location['Pomer'] . '" data-sucet="' . $location['Súčet'] . '" data-id="' . $location['číslo_obce'] . '">' . $location['názov_obce'] . '</option>';
+}
+?>
                   </datalist>
-
                 </div>
-
               </div>
-
               <div class="" id="search-btn">
                   <button type="submit" class="search-btn text-1 d-md-block d-none">
                     Hľadať
                   </button>
-                
+
                 <button type="button" class="search-btn search-btn-with-icon text-1 d-block d-md-none">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
@@ -157,10 +153,8 @@ do políčka nižšie zadáte názov obce, v ktorej žijete.
                   </svg>
                 </button>
               </div>
-              
             </div>
           </form>
-          <p id="custom-message"></p>
           </div>
           <h1 id="empty_database_message" style="display: none;" class="cus-text-primary"> Zvolené mesto sa nenachádza v našej databáze </h1>
         </div>
@@ -183,7 +177,7 @@ do políčka nižšie zadáte názov obce, v ktorej žijete.
               </div>
 
               <div class="service-card-cont">
-                
+
                 <div class="pt-1  text-white ">
 
                   <p class="text-center" id="recomendation_text" style="border-radius: 19px;font-size: 32px;font-weight: 700; ">
@@ -191,7 +185,7 @@ do políčka nižšie zadáte názov obce, v ktorej žijete.
                   </p>
                 </div>
                 <p class="text-2 pt-1 pb-5 text-white">
-                  Obsah minerálov vo vodovode 
+                  Obsah minerálov vo vodovode
                 </p>
                 <div class="d-flex justify-content-around gap-3">
                   <div class="service-card__logo__md">
@@ -275,7 +269,7 @@ do políčka nižšie zadáte názov obce, v ktorej žijete.
               <div class="service-card-cont">
                 <div class="">
                   <div class="" style="margin-right: 30px;">
-                 
+
                     <!-- <p class="text-2 pt-1 pb-5 text-white">
                       Obsah minerálov vo vodovode
                     </p> -->
@@ -404,6 +398,7 @@ do políčka nižšie zadáte názov obce, v ktorej žijete.
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
+    <script src="./map.js"></script>
   <script src="./typeahead.js" defer></script>
 </body>
 

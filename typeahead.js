@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
   let data_list_option_parent = document.getElementById("datalistOptions");
   let addedCities = [];
 
-  search_input.addEventListener("keypress", async (e) => {
-    datat();
-  });
+  // search_input.addEventListener("keypress", async (e) => {
+  //   // datat();
+  // });
 
   search_from.addEventListener("submit", function (event) {
     event.preventDefault();
-    datat();
+    // datat();
   });
 
   function datat() {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
           addedCities.length = 0; // Clear the added cities array
 
           jsonObject.forEach((element) => {
-            let cityName = element["názov obce"];
+            let cityName = element["názov_obce"];
             let temp_cityName = cityName.toLowerCase();
             search_value = search_value.toLowerCase();
             if (
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       element.remove();
     });
 
-    console.log(selectedOption);
+    // console.log(selectedOption);
     // If a selected option was found
     if (selectedOption) {
       let mg = selectedOption.getAttribute("data-mg");
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // console.log(selectedOption.getAttribute("data-lat"));
       let marker_array = [];
-      marker_array["názov obce"] = selectedOption.value;
+      marker_array["názov_obce"] = selectedOption.value;
       marker_array["latitude"] = selectedOption.getAttribute("data-lat");
       marker_array["longitude"] = selectedOption.getAttribute("data-lon");
       marker_array["Mg"] = mg;
