@@ -1,18 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
   let search_btn = document.getElementById("search-btn");
   let search_input = document.getElementById("map_location_input_search");
-  let data_list_option_parent = document.querySelector("#datalistOptions select");
-  let data_list_option_parent_childs = document.querySelectorAll("#datalistOptions select options");
+  let data_list_option_parent = document.getElementById("datalistOptions");
   let addedCities = [];
- 
 
-  data_list_option_parent.addEventListener('input',()=>{
- 
-    search_input.value = data_list_option_parent.value ; 
-    data_list_option_parent.style.display = "none";
-  })
- 
-  search_input.addEventListener("input", async (e) => { 
+  search_input.addEventListener("keypress", async (e) => {
     datat();
   });
 
@@ -20,9 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
     datat();
   });
-  function datat() {
 
+  function datat() {
     let search_value = search_input.value;
+
     if (search_value.length > 0) {
       let jsonFilePath = "updated_data.json";
       fetch(jsonFilePath)
@@ -30,20 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
         .then((jsonObject) => {
           data_list_option_parent.innerHTML = "";
           addedCities.length = 0; // Clear the added cities array
+
           jsonObject.forEach((element) => {
             let cityName = element["názov obce"];
-            let temp_cityName = cityName;
+            let temp_cityName = cityName.toLowerCase();
             search_value = search_value.toLowerCase();
-
-            let normalizedString = temp_cityName.normalize("NFD");
-            let search_value_normalizedString = search_value.normalize("NFD");
-
-            // Remove diacritic marks (accented characters)
-            let stringWithoutSpecialChar = normalizedString.replace(/[\u0300-\u036f]/g, '');
-            let search_value_stringWithoutSpecialChar = search_value_normalizedString.replace(/[\u0300-\u036f]/g, '');
-            temp_cityName = stringWithoutSpecialChar.toLowerCase()
-            search_value = search_value_stringWithoutSpecialChar.toLowerCase()
- 
             if (
               temp_cityName.includes(search_value) &&
               !addedCities.includes(cityName)
@@ -63,29 +47,31 @@ document.addEventListener("DOMContentLoaded", function () {
               data_list_option_parent.appendChild(optionElement);
               addedCities.push(cityName); // Add city to the added cities array
             }
-          });
-         
+          }); 
+        }) .catch((error) => {
+          console.error("Error reading or parsing JSON:", error);
         });
        
     }
-
-    // update_select_value();
   }
+
+
   search_btn.addEventListener("click", function () {
+
     let selectedOption = null;
-    empty_database_message.style.display = 'none';
+    empty_database_message.style.display = "none";
     // Find the selected option within the datalist
     for (let i = 0; i < data_list_option_parent.options.length; i++) {
-
-      let temp_data_list_option_parent = data_list_option_parent.options[i].value.toLowerCase();
-      let temp_search_input = data_list_option_parent.value.toLowerCase()
+      let temp_data_list_option_parent =
+        data_list_option_parent.options[i].value.toLowerCase();
+      let temp_search_input = search_input.value.toLowerCase();
 
       if (temp_data_list_option_parent === temp_search_input) {
         selectedOption = data_list_option_parent.options[i];
         break;
       }
+    }
 
-    } 
     var elements = document.querySelectorAll(".data-box");
 
     // Loop through the elements and set their display property to "block"
@@ -104,21 +90,17 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(selectedOption);
     // If a selected option was found
     if (selectedOption) {
-      // <option  data-ca="124.4" data-mg="32.4" data-pomer="4:1" data-sucet="156.8" data-id="544060">Babie</option>
       let mg = selectedOption.getAttribute("data-mg");
       let ca = selectedOption.getAttribute("data-ca");
       let pomer = selectedOption.getAttribute("data-pomer");
-      let recomended_ca_amount = 1200;
-      let recomended_mg_amount = 400;
+      let recomended_ca_amount = 160;
+      let recomended_mg_amount = 60;
 
       let ca_percentage = ca * 2;
       let mg_percentage = mg * 2;
 
-      ca_percentage = ca_percentage / recomended_ca_amount * 100;
-      mg_percentage = mg_percentage / recomended_mg_amount * 100;
-
-
-
+      ca_percentage = (ca_percentage / recomended_ca_amount) * 100;
+      mg_percentage = (mg_percentage / recomended_mg_amount) * 100;
 
       pomer = pomer.split(":");
       mg_proportion = pomer[1];
@@ -127,38 +109,66 @@ document.addEventListener("DOMContentLoaded", function () {
       let sucet = selectedOption.getAttribute("data-sucet");
       let recomendation_text = "";
       let recomendation_amount = "";
-      let bg_color = '';
+      let bg_color = "";
 
-      if (sucet < 80) {
+      if (
+        Math.round(ca_percentage) >= 100 &&
+        Math.round(mg_percentage) >= 100
+      ) {
         recomendation_amount = "1,5L";
         recomendation_text =
           "<b>Veľmi nízky obsah minerálov vo vode.</b><br>Odporúčame dopĺňať pitný režim o minimálne";
-        recomendation_text = 'Veľmi nízky';
-        bg_color = '#A70000';
-      } else if (sucet >= 80 && sucet < 200) {
+        recomendation_text = "Dostatočný";
+        bg_color = "#99d774";
+      } else if (
+        Math.round(ca_percentage) >= 90 ||
+        Math.round(mg_percentage) >= 90
+      ) {
         recomendation_amount = "1L";
         recomendation_text =
           "<b>Nízky obsah minerálov vo vode.</b><br>Odporúčame dopĺňať pitný režim o minimálne";
-        
-        recomendation_text = 'Podpriemerný';
-        bg_color = '#FF0000';
 
+        recomendation_text = "Priemerný";
+        bg_color = "#FF5252";
+      } else if (
+        (Math.round(ca_percentage) >= 60 && Math.round(ca_percentage) <= 89) ||
+        (Math.round(mg_percentage) >= 60 && Math.round(mg_percentage) <= 89)
+      ) {
+        recomendation_amount = "0.5L";
+        recomendation_text =
+          "<b>Priemerný obsah minerálov vo vode.</b><br>Odporúčame dopĺňať pitný režim o minimálne";
+
+        recomendation_text = "Podpriemerný";
+        bg_color = "#FF5252";
+      } else if (
+        (Math.round(ca_percentage) >= 35 && Math.round(ca_percentage) <= 59) ||
+        (Math.round(mg_percentage) >= 35 && Math.round(mg_percentage) <= 59)
+      ) {
+        recomendation_amount = "0.5L";
+        recomendation_text =
+          "<b>Priemerný obsah minerálov vo vode.</b><br>Odporúčame dopĺňať pitný režim o minimálne";
+
+        recomendation_text = "Veľmi nízky";
+        bg_color = "#FF0000";
       } else {
         recomendation_amount = "0.5L";
         recomendation_text =
           "<b>Priemerný obsah minerálov vo vode.</b><br>Odporúčame dopĺňať pitný režim o minimálne";
-        
-        recomendation_text = 'Priemerný';
-        bg_color = '#FF5252';
 
+        recomendation_text = "Kriticky nízky";
+        bg_color = "#A70000";
       }
+
       document.getElementById("recomendation_text").innerHTML =
         recomendation_text;
-        document.getElementById("recomendation_text").style.backgroundColor = bg_color;
+      document.getElementById("recomendation_text").style.backgroundColor =
+        bg_color;
       // document.getElementById("recomendation_amount").innerText =
       //   recomendation_amount;
-      document.getElementById("proportion-ca").innerText = Math.round(ca_percentage) + '%';
-      document.getElementById("proportion-mg").innerText = Math.round(mg_percentage) + '%';
+      document.getElementById("proportion-ca").innerText =
+        Math.round(ca_percentage) + "%";
+      document.getElementById("proportion-mg").innerText =
+        Math.round(mg_percentage) + "%";
       document.getElementById("Ca").innerText = ca;
       document.getElementById("Mg").innerText = mg;
 
@@ -175,9 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
       elements.forEach(function (element) {
         element.style.display = "none";
       });
-      empty_database_message.style.display = 'block';
-
-
+      empty_database_message.style.display = "block";
     }
   });
 });

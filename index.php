@@ -27,6 +27,23 @@
   <!-- styles done for front-end -->
   <link rel="stylesheet" type="text/css" href="public/css/main.css" />
   <link rel="stylesheet" type="text/css" href="public/css/responsive.css" />
+
+<!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KK8PFMS');</script>
+    <!-- End Google Tag Manager -->
+</head>
+<!--/head-->
+
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KK8PFMS"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 </head>
 
 <body>
@@ -80,15 +97,15 @@
   <section class="cus-bg-primary">
     <div class="container py-5">
       <div class="text-white text-center py-5 heading-1 mb-5">
-        <h1 class="pb-3">Mapa obsahu horčíka a vápnika vo vodovodoch</h1>
+        <h1 class="pb-3">Mapa* priemerného obsahu vápnika a horčíka v pitnej vode na Slovensku</h1>
 
         <p class="text-1">
-          Viete, aké množstvo životne dôležitých minerálov obsahuje voda z
-          vodovodu vo vašej obci alebo meste? Zistite to <br />
-          jednoducho na našej mape a získajte zároveň údaje o tom, koľko
-          horčíka a vápnika potrebujete denne prijať. Stačí, ak <br />
-          do políčka nižšie zadáte názov obce, v ktorej žijete.
+          Viete, aké množstvo životne dôležitých minerálov obsahuje voda z vodovodu vo vašej obci alebo meste? Zistite to
+jednoducho na našej mape a získajte zároveň údaje o tom, koľko horčíka a vápnika potrebujete denne prijať. Stačí, ak
+do políčka nižšie zadáte názov obce, v ktorej žijete.
         </p>
+
+<p class="text-1" style="font-size:10px !important">*Zostavená na základe národnej geochemickej databázy podzemných/pitných vôd Slovenska v rámci projektu GEOHEALTH (viac než 20 000 chemických analýz jednotlivých zdrojov vôd). </p>
       </div>
     </div>
   </section>
@@ -113,34 +130,18 @@
                   </svg>
                 </div>
 
-                <div class="w-100 position-relative">
+                <div class="w-100">
                   <!-- <input type="text" id="map_location_input_search" class="cus-color-secondary cus-text-lg p-3 border-0" placeholder="Žiar nad Hronom"> -->
- 
-                  <input type="text" id="map_location_input_search" 
+
+                  <input type="text" id="map_location_input_search" list="datalistOptions"
                     class="cus-color-secondary cus-text-lg p-0 border-0 w-100" placeholder="Vyhľadajte si svoju obec">
- 
- 
-                  <div class="form-group position-absolute w-100" id="datalistOptions"   style="left: 0px;top:60px; width: fit-content;">
-                    <select class="form-select"  aria-label="Default select example" style="border:none">
-                    </select>
-                  </div>
+
+                  <datalist id="datalistOptions">
+
+                  </datalist>
 
                 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
 
-  let inputField = document.getElementById("map_location_input_search");
-  let selectElement = document.querySelector("#datalistOptions select");
-
-  selectElement.style.display = "none";
-  // // Event listener for input focus
-  inputField.addEventListener("focus", function () {
-    selectElement.style.display = "block";
-  });
-  
-});
-
-</script>
               </div>
 
               <div class="" id="search-btn">
@@ -159,6 +160,7 @@
               
             </div>
           </form>
+          <p id="custom-message"></p>
           </div>
           <h1 id="empty_database_message" style="display: none;" class="cus-text-primary"> Zvolené mesto sa nenachádza v našej databáze </h1>
         </div>
@@ -251,8 +253,7 @@
                     <p id="proportion-ca" class="service-card-1__text__2 cus-color-secondary" style="font-size: 60px;">5</p>
                   </div>
                 </div>
-                <p class="text-2 text-white">Odporúčaná denná dávka vápnika je 1 200 mg
-                  a odporúčaná denná dávka horčíka je 400 mg.</p>
+                <p class="text-2 text-white">Odporúčaná denná dávka vápnika z vody je 160 mg a odporúčaná denná dávka horčíka je 60 mg.</p>
 
               </div>
             </div>
